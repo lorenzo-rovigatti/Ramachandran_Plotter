@@ -30,6 +30,7 @@ import os
 import matplotlib.pyplot as plt
 # Base functions
 import pandas as pd
+import os
 
 # Package functions
 from DihedralCalculator import *
@@ -56,7 +57,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	# User input determines background
 	plot_type = options[int(plot_type)]				
 	# Out file name
-	plot_name = str(out_dir + '/' + pdb[:-4] + '_' + plot_type + "RamachandranPlot_tmp")
+	filename_no_ext = os.path.splitext(pdb)[0]
+	plot_name = os.path.join(out_dir, filename_no_ext + '_' + plot_type + "RamachandranPlot_tmp")
 
 
 
@@ -66,7 +68,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	VerboseStatement(verb, "Importing Top8000 library")
 
 	# Top8000 peptide dataset. Pre-analysed
-	top8000_df = SelectAngles(pd.read_csv("Top8000_DihedralAngles.csv.gz", compression="gzip"), 
+	reference_csv_path = os.path.join(os.path.dirname(__file__), "Top8000_DihedralAngles.csv.gz")
+	top8000_df = SelectAngles(pd.read_csv(reference_csv_path, compression="gzip"), 
 								plot_type)
 
 
@@ -119,7 +122,7 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	# Plotting user's PDB dihedral angles
 	VerboseStatement(verb, "Plotting Ramachandran diagram")
 
-	plt.style.use("seaborn-v0_8-poster")
+	plt.style.use("seaborn-poster")
 
 	fig, ax = plt.subplots(1,1, figsize=figure_size, tight_layout=True)		# Defining plot area. 
 
