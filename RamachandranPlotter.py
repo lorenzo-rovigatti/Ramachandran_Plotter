@@ -57,9 +57,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	# User input determines background
 	plot_type = options[int(plot_type)]				
 	# Out file name
-	filename_no_ext = os.path.splitext(pdb)[0]
+	filename_no_ext = os.path.splitext(os.path.basename(pdb))[0]
 	plot_name = os.path.join(out_dir, filename_no_ext + '_' + plot_type + "RamachandranPlot_tmp")
-
 
 
 	########################################################
