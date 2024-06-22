@@ -136,8 +136,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	AddGridLines(ax)
 
 	# PLOTTING USER'S DIHEDRAL ANGLE DATA
-	# ax.scatter(userpdb_df["phi"], userpdb_df["psi"], s=15, color=data_point_colour, 
-	# 						zorder=4, linewidths=0.5, edgecolor=data_point_edge_colour)
+	ax.scatter(userpdb_df["phi"], userpdb_df["psi"], s=15, color=data_point_colour, 
+							zorder=4, linewidths=0.5, edgecolor=data_point_edge_colour)
 
 	# AXES AESTHETICS/FEATURES
 	FormatAxis(ax)
