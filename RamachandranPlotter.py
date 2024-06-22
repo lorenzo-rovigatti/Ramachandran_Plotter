@@ -58,7 +58,7 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	plot_type = options[int(plot_type)]				
 	# Out file name
 	filename_no_ext = os.path.splitext(os.path.basename(pdb))[0]
-	plot_name = os.path.join(out_dir, filename_no_ext + '_' + plot_type + "RamachandranPlot_tmp")
+	plot_name = os.path.join(out_dir, filename_no_ext + '_' + plot_type + "_tmp")
 
 
 	########################################################
@@ -104,8 +104,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 
 	# Recommended adjustable parameters. 
 	figure_size = (5,5)						# Output figure size in inches.
-	contour_level_inner = 96				# Percentile of dihedral angles for inner contour lines (e.g. contour_level=96 means the area bounded by the contour line represents the range of angles in which 96% of all dihedral from the Top800 peptide DB fall within).
-	contour_level_outer = 15				# Percentile of dihedral angles for outer contour lines
+	contour_level_inner = 95				# Percentile of dihedral angles for inner contour lines (e.g. contour_level=96 means the area bounded by the contour line represents the range of angles in which 96% of all dihedral from the Top800 peptide DB fall within).
+	contour_level_outer = 80				# Percentile of dihedral angles for outer contour lines
 	contour_line_color_inner = "#DFF8FB"	# Inner contour line colour.
 	contour_line_color_outer = "#045E93"	# Colour of outer contour lines
 	out_resolution = 96						# Output figure resolution. Not required if saving file as PDF
@@ -116,7 +116,7 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	# Plotting background
 	VerboseStatement(verb, "Generating background of favoured regions")
 
-	MakeBackground(top8000_df, plot_type, plot_name, background_colour) 	# Genertating background: region of favoured dihedral angles
+	MakeBackground(top8000_df, plot_type, plot_name, background_colour) 	# Generating background: region of favoured dihedral angles
 
 	# Plotting user's PDB dihedral angles
 	VerboseStatement(verb, "Plotting Ramachandran diagram")
@@ -136,8 +136,8 @@ def main(pdb, itmod, model_num, itchain, chain_num, plot_type, out_dir, verb, sa
 	AddGridLines(ax)
 
 	# PLOTTING USER'S DIHEDRAL ANGLE DATA
-	ax.scatter(userpdb_df["phi"], userpdb_df["psi"], s=15, color=data_point_colour, 
-							zorder=4, linewidths=0.5, edgecolor=data_point_edge_colour)
+	# ax.scatter(userpdb_df["phi"], userpdb_df["psi"], s=15, color=data_point_colour, 
+	# 						zorder=4, linewidths=0.5, edgecolor=data_point_edge_colour)
 
 	# AXES AESTHETICS/FEATURES
 	FormatAxis(ax)

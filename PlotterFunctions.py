@@ -27,6 +27,7 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib import colors
 from matplotlib.colors import LogNorm
+import numpy as np
 
 
 # Removes qt5ct messages. Comment out to debug
@@ -143,11 +144,11 @@ def AddContour(axis, df, contour_level, line_colour, contour_alpha=1):
 	===============================================================
 	"""
 
-	counts, discard1, discard2, discard3 = plt.hist2d(df["phi"],df["psi"], bins=90, 
-																norm=LogNorm(), alpha=0)
+	counts, discard1, discard2, discard3 = plt.hist2d(df["phi"],df["psi"], bins=90)
 
+	level=np.percentile(counts, contour_level)
 	axis.contour(counts.transpose(), extent=[-180, 180, -180, 180], 
-							levels=[contour_level], linewidths=1, colors=[line_colour], 
+							levels=[level], linewidths=1, colors=[line_colour], 
 							zorder=2, alpha=contour_alpha)
 
 
@@ -181,8 +182,12 @@ def FormatAxis(axis):
 
 	axis.set_xlim((-180, 180))
 	axis.set_ylim((-180, 180))
-	axis.set_xlabel(u"\u03A6 (\u00B0)")	# phi
-	axis.set_ylabel(u"\u03A8 (\u00B0)")	# psi
+	axis.set_xlabel(u"$\phi$ (\u00B0)")	# phi
+	axis.set_ylabel(u"$\psi$ (\u00B0)")	# psi
+
+	axis.set_xticks([-180, -90, 0, 90, 180])
+	axis.set_yticks([-180, -90, 0, 90, 180])
+
 	ax_linewidth = 2
 	axis.spines["left"].set_linewidth(ax_linewidth)
 	axis.spines["bottom"].set_linewidth(ax_linewidth)
